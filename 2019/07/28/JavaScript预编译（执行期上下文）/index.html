@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <!-- Hello World | Zesystem&#39;blog -->
+  <!-- JavaScript预编译（执行期上下文） | Zesystem&#39;blog -->
   <title>Zesystem's  Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="This is Zesystem's blog.">
@@ -11,18 +11,21 @@
   
     <meta name="keywords" content="MinHow,MinHow's Blog" />
     -->
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords" content="Zesystem">
+  <meta name="description" content="很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。">
+<meta name="keywords" content="-变量提升 -预编译">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://zesystem.github.io/2019/07/27/hello-world - 副本/index.html">
+<meta property="og:title" content="JavaScript预编译（执行期上下文）">
+<meta property="og:url" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/index.html">
 <meta property="og:site_name" content="Zesystem&#39;blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-27T10:39:19.795Z">
+<meta property="og:image" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/1.png">
+<meta property="og:image" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/2.png">
+<meta property="og:updated_time" content="2019-07-28T00:30:57.130Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="JavaScript预编译（执行期上下文）">
+<meta name="twitter:description" content="很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。">
+<meta name="twitter:image" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/1.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -124,20 +127,27 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-hello-world - 副本" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-JavaScript预编译（执行期上下文）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      Hello World
+      JavaScript预编译（执行期上下文）
     </h1>
     <div class="post-title-bar">
       <ul>
           
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/-前端js/">-前端js</a>
+                  
+              </li>
+          
         <li>
-          <i class="fa fa-calendar"></i>  2019-07-27
+          <i class="fa fa-calendar"></i>  2019-07-28
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -153,24 +163,31 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+            <p>很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。</p>
+<a id="more"></a>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h2 id="预编译（又叫“执行期上下文”）"><a href="#预编译（又叫“执行期上下文”）" class="headerlink" title="预编译（又叫“执行期上下文”）"></a>预编译（又叫“执行期上下文”）</h2><p>一般来说，预编译与闭包、作用域链和闭包是密切相关的，好多人包括在企业开发的人都听说过一句话叫做变量提升和“函数声明整体提升”。这个就是预编译后的一个小结果，所以今天自己总结了一下。分为以下几个步骤来说。</p>
+<h4 id="大家先看看这段代码"><a href="#大家先看看这段代码" class="headerlink" title="大家先看看这段代码"></a>大家先看看这段代码</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(a);</span><br><span class="line">var a = 1;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p><img src="1.png" alt></p>
+<p>为什么变量的声明在输出的下面，却没有报错？值为什么是undefined？</p>
+<h4 id="大家再看看下面这段代码"><a href="#大家再看看下面这段代码" class="headerlink" title="大家再看看下面这段代码"></a>大家再看看下面这段代码</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">	function test(a,b)&#123;</span><br><span class="line">		console.log(a);</span><br><span class="line">		var a = 'demo';</span><br><span class="line">		console.log(a);</span><br><span class="line">		function a()&#123;&#125;</span><br><span class="line">		console.log(a);</span><br><span class="line">		var a = function ()&#123;&#125;</span><br><span class="line">		console.log(a);</span><br><span class="line">		console.log(b)</span><br><span class="line">		var b = 1;</span><br><span class="line">	&#125;</span><br><span class="line">	test(1);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>大家看到这段代码是不是很震惊呢？形参、变量名、函数名都是“a”，那么输出的结果会是怎样呢？</p>
+<p><img src="2.png" alt></p>
+<p>和大家想的一样吗？大家心里是不是有这么几个问题，前四个输出的都是a，为什么输出的结果不一样呢？而且b变量不是把1赋值给它了吗，为什么会是undefined？接下来咱们来讲讲什么是预编译（执行期上下文）。到最后大家就明白了。</p>
+<h4 id="预编译（‘执行期上下文’）"><a href="#预编译（‘执行期上下文’）" class="headerlink" title="预编译（‘执行期上下文’）"></a>预编译（‘执行期上下文’）</h4><p><strong>预编译发生在函数执行之前</strong>。划重点了啊！！！！！ 这句话很重要，函数执行之<strong>前</strong>也就是在这段程序开始之前，浏览器对马上要执行的函数进行预编译！！<br>预编译四部曲</p>
+<ol>
+<li>创建AO对象</li>
+<li>找形参和变量声明，将变量和形参作为AO属性名，值为undefined</li>
+<li>将实参和形参相统一</li>
+<li>在函数体里找到函数声明，值赋予函数体<br>最后程序输出变量值的时候，就是从AO对象中拿。</li>
+</ol>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月27日 18:39</p>
-        <p>原始链接： <a class="post-url" href="/2019/07/27/hello-world - 副本/" title="Hello World">https://zesystem.github.io/2019/07/27/hello-world - 副本/</a></p>
+        <p>最后更新： 2019年07月28日 08:30</p>
+        <p>原始链接： <a class="post-url" href="/2019/07/28/JavaScript预编译（执行期上下文）/" title="JavaScript预编译（执行期上下文）">https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/</a></p>
         <footer>
             <a href="https://zesystem.github.io">
                 <img src="/images/logo1.jpeg" alt="Zesystem">
@@ -227,7 +244,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/07/27/hello-world - 副本/&title=《Hello World》 — Zesystem'blog&pic=https://zesystem.github.ioimages/logo1.jpeg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/&title=《JavaScript预编译（执行期上下文）》 — Zesystem'blog&pic=/images/111.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -237,22 +254,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zesystem.github.io/2019/07/27/hello-world - 副本/&title=《Hello World》 — Zesystem'blog&source=This is Zesystem's blog." data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/&title=《JavaScript预编译（执行期上下文）》 — Zesystem'blog&source=很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zesystem.github.io/2019/07/27/hello-world - 副本/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello World》 — Zesystem'blog&url=https://zesystem.github.io/2019/07/27/hello-world - 副本/&via=https://zesystem.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JavaScript预编译（执行期上下文）》 — Zesystem'blog&url=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/&via=https://zesystem.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zesystem.github.io/2019/07/27/hello-world - 副本/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -262,7 +279,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zesystem.github.io/2019/07/27/hello-world - 副本/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -271,6 +288,13 @@
         <ul class="article-footer-menu">
             
             
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/-变量提升-预编译/" class="color1">-变量提升 -预编译</a>
+      
+  </li>
+
         </ul>
         
     </footer>
@@ -280,25 +304,15 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Quick-Start"><span class="post-toc-text">Quick Start</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Create-a-new-post"><span class="post-toc-text">Create a new post</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Run-server"><span class="post-toc-text">Run server</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Generate-static-files"><span class="post-toc-text">Generate static files</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Deploy-to-remote-sites"><span class="post-toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#预编译（又叫“执行期上下文”）"><span class="post-toc-text">预编译（又叫“执行期上下文”）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大家先看看这段代码"><span class="post-toc-text">大家先看看这段代码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大家再看看下面这段代码"><span class="post-toc-text">大家再看看下面这段代码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#预编译（‘执行期上下文’）"><span class="post-toc-text">预编译（‘执行期上下文’）</span></a></li></ol></li></ol></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2019/07/28/JavaScript预编译（执行期上下文）/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          JavaScript预编译（执行期上下文）
-        
-      </span>
-    </a>
   
-  
-    <a href="/2019/07/27/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/07/27/hello-world - 副本/" id="article-nav-older" class="article-nav-link-wrap">
       <span class="article-nav-title">Hello World</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
