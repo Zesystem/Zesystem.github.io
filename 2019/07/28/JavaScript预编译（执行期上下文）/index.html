@@ -12,7 +12,7 @@
     <meta name="keywords" content="MinHow,MinHow's Blog" />
     -->
   <meta name="description" content="很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。">
-<meta name="keywords" content="-变量提升 -预编译">
+<meta name="keywords" content="变量提升,预编译">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript预编译（执行期上下文）">
 <meta property="og:url" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/index.html">
@@ -21,7 +21,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/1.png">
 <meta property="og:image" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/2.png">
-<meta property="og:updated_time" content="2019-07-28T00:30:57.130Z">
+<meta property="og:updated_time" content="2019-07-28T02:43:28.984Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript预编译（执行期上下文）">
 <meta name="twitter:description" content="很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。">
@@ -142,7 +142,7 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/-前端js/">-前端js</a>
+                      <a href="/categories/Web前端开发/">Web前端开发</a>
                   
               </li>
           
@@ -166,7 +166,7 @@
             <p>很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。</p>
 <a id="more"></a>
 
-<h2 id="预编译（又叫“执行期上下文”）"><a href="#预编译（又叫“执行期上下文”）" class="headerlink" title="预编译（又叫“执行期上下文”）"></a>预编译（又叫“执行期上下文”）</h2><p>一般来说，预编译与闭包、作用域链和闭包是密切相关的，好多人包括在企业开发的人都听说过一句话叫做变量提升和“函数声明整体提升”。这个就是预编译后的一个小结果，所以今天自己总结了一下。分为以下几个步骤来说。</p>
+<h3 id="预编译（又叫“执行期上下文”）"><a href="#预编译（又叫“执行期上下文”）" class="headerlink" title="预编译（又叫“执行期上下文”）"></a>预编译（又叫“执行期上下文”）</h3><p>一般来说，预编译与闭包、作用域链和闭包是密切相关的，好多人包括在企业开发的人都听说过一句话叫做变量提升和“函数声明整体提升”。这个就是预编译后的一个小结果，所以今天自己总结了一下。分为以下几个步骤来说。</p>
 <h4 id="大家先看看这段代码"><a href="#大家先看看这段代码" class="headerlink" title="大家先看看这段代码"></a>大家先看看这段代码</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(a);</span><br><span class="line">var a = 1;</span><br></pre></td></tr></table></figure>
 
 <p><img src="1.png" alt></p>
@@ -186,7 +186,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月28日 08:30</p>
+        <p>最后更新： 2019年07月28日 10:43</p>
         <p>原始链接： <a class="post-url" href="/2019/07/28/JavaScript预编译（执行期上下文）/" title="JavaScript预编译（执行期上下文）">https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/</a></p>
         <footer>
             <a href="https://zesystem.github.io">
@@ -244,7 +244,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/&title=《JavaScript预编译（执行期上下文）》 — Zesystem'blog&pic=/images/111.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/&title=《JavaScript预编译（执行期上下文）》 — Zesystem'blog&pic=/images/Javascript.jpg" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -291,7 +291,9 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/-变量提升-预编译/" class="color1">-变量提升 -预编译</a>
+    <a href="/tags/变量提升/" class="color5">变量提升</a>
+      
+    <a href="/tags/预编译/" class="color4">预编译</a>
       
   </li>
 
@@ -304,7 +306,7 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#预编译（又叫“执行期上下文”）"><span class="post-toc-text">预编译（又叫“执行期上下文”）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大家先看看这段代码"><span class="post-toc-text">大家先看看这段代码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大家再看看下面这段代码"><span class="post-toc-text">大家再看看下面这段代码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#预编译（‘执行期上下文’）"><span class="post-toc-text">预编译（‘执行期上下文’）</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#预编译（又叫“执行期上下文”）"><span class="post-toc-text">预编译（又叫“执行期上下文”）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大家先看看这段代码"><span class="post-toc-text">大家先看看这段代码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大家再看看下面这段代码"><span class="post-toc-text">大家再看看下面这段代码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#预编译（‘执行期上下文’）"><span class="post-toc-text">预编译（‘执行期上下文’）</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
@@ -373,10 +375,10 @@
 <div class="sidebar-menu-box" id="sidebar-menu-box">
     <div class="sidebar-menu-box-container">
         <div id="sidebar-menu-box-categories">
-            <a class="category-link" href="/categories/前端js/">-前端js</a>
+            <a class="category-link" href="/categories/Web前端开发/">Web前端开发</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/变量提升-预编译/" style="font-size: 10px;">-变量提升 -预编译</a>
+            <a href="/tags/tags1/" style="font-size: 10px;">tags1</a> <a href="/tags/tags2/" style="font-size: 10px;">tags2</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/预编译/" style="font-size: 10px;">预编译</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -409,7 +411,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/变量提升-预编译/" style="font-size: 10px;">-变量提升 -预编译</a>
+            <a href="/tags/tags1/" style="font-size: 10px;">tags1</a> <a href="/tags/tags2/" style="font-size: 10px;">tags2</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/预编译/" style="font-size: 10px;">预编译</a>
         </div>
     </div>
 </div>

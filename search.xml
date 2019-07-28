@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[JavaScript预编译（执行期上下文）]]></title>
+    <url>%2F2019%2F07%2F28%2FJavaScript%E9%A2%84%E7%BC%96%E8%AF%91%EF%BC%88%E6%89%A7%E8%A1%8C%E6%9C%9F%E4%B8%8A%E4%B8%8B%E6%96%87%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。 预编译（又叫“执行期上下文”）一般来说，预编译与闭包、作用域链和闭包是密切相关的，好多人包括在企业开发的人都听说过一句话叫做变量提升和“函数声明整体提升”。这个就是预编译后的一个小结果，所以今天自己总结了一下。分为以下几个步骤来说。 大家先看看这段代码12console.log(a);var a = 1; 为什么变量的声明在输出的下面，却没有报错？值为什么是undefined？ 大家再看看下面这段代码1234567891011121314151617181920212223&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt; &lt;meta charset="UTF-8"&gt; &lt;title&gt;Document&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;script&gt; function test(a,b)&#123; console.log(a); var a = 'demo'; console.log(a); function a()&#123;&#125; console.log(a); var a = function ()&#123;&#125; console.log(a); console.log(b) var b = 1; &#125; test(1);&lt;/script&gt;&lt;/body&gt;&lt;/html&gt; 大家看到这段代码是不是很震惊呢？形参、变量名、函数名都是“a”，那么输出的结果会是怎样呢？ 和大家想的一样吗？大家心里是不是有这么几个问题，前四个输出的都是a，为什么输出的结果不一样呢？而且b变量不是把1赋值给它了吗，为什么会是undefined？接下来咱们来讲讲什么是预编译（执行期上下文）。到最后大家就明白了。 预编译（‘执行期上下文’）预编译发生在函数执行之前。划重点了啊！！！！！ 这句话很重要，函数执行之前也就是在这段程序开始之前，浏览器对马上要执行的函数进行预编译！！预编译四部曲 创建AO对象 找形参和变量声明，将变量和形参作为AO属性名，值为undefined 将实参和形参相统一 在函数体里找到函数声明，值赋予函数体最后程序输出变量值的时候，就是从AO对象中拿。]]></content>
+      <categories>
+        <category>Web前端开发</category>
+      </categories>
+      <tags>
+        <tag>变量提升</tag>
+        <tag>预编译</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2019%2F07%2F27%2Fhello-world%20-%20%E5%89%AF%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2019%2F07%2F27%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <tags>
+        <tag>tags1</tag>
+        <tag>tags2</tag>
+      </tags>
+  </entry>
+</search>
