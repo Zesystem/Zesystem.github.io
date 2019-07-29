@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <!-- 关于浮点数丢失精度的原理 | Zesystem&#39;blog -->
+  <title>Zesystem's  Space</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="This is Zesystem's blog.">
+  <!-- 
+  
+    <meta name="keywords" content="MinHow,MinHow's Blog" />
+    -->
+  <meta name="description" content="浮点数会存在精度丢失的现象，大很多金融的大项目中，都不去使用浮点数。因为这个数很危险，我们可以剖析一下原理。">
+<meta name="keywords" content="浮点数精度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于浮点数丢失精度的原理">
+<meta property="og:url" content="https://zesystem.github.io/2019/07/29/关于浮点数丢失精度的原理/index.html">
+<meta property="og:site_name" content="Zesystem&#39;blog">
+<meta property="og:description" content="浮点数会存在精度丢失的现象，大很多金融的大项目中，都不去使用浮点数。因为这个数很危险，我们可以剖析一下原理。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190728161652847.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190728162253855.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190728162433811.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019072816343613.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190728164422822.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019072817060165.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190728170958818.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190728202840901.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190728202927876.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190728203621127.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU4ODQ5NQ==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019072912291572.png">
+<meta property="og:updated_time" content="2019-07-29T06:35:25.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于浮点数丢失精度的原理">
+<meta name="twitter:description" content="浮点数会存在精度丢失的现象，大很多金融的大项目中，都不去使用浮点数。因为这个数很危险，我们可以剖析一下原理。">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190728161652847.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/pace.min.js"></script>
+  
+
+  
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?true";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+
+  
+  <div style="display: none;">
+    <script src="//s22.cnzz.com/z_stat.php?id=true&web_id=true" language="JavaScript"></script>
+  </div>
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">Zesystem</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>我的家</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>干货s</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>关于me</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo1.jpeg" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        Zesystem
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        不平凡的人生需要走不平凡的路
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="CSDN" target="_blank" href="https://blog.csdn.net/weixin_44588495">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="https://github.com/Zesystem">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="2502266520"  ">
+                            <i class="fa fa-qq fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-关于浮点数丢失精度的原理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      关于浮点数丢失精度的原理
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/java/">java</a>
+                  
+              </li>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2019-07-29
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>浮点数会存在精度丢失的现象，大很多金融的大项目中，都不去使用浮点数。因为这个数很危险，我们可以剖析一下原理。</p>
+<a id="more"></a>
+<h3 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h3><h5 id="首先我们必须要清楚"><a href="#首先我们必须要清楚" class="headerlink" title="首先我们必须要清楚"></a>首先我们必须要清楚</h5><ul>
+<li>在计算机中所有的数值、代码、信息都是以01二进制存储的，也就是说我们输入的所有信息，最终都会表示成01二进制的形式。例如byte类型的 0000 1000表示的是整数8。<h5 id="然后我们要清楚"><a href="#然后我们要清楚" class="headerlink" title="然后我们要清楚"></a>然后我们要清楚</h5></li>
+<li>所有的整数类型转换成二进制，看如下代码：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//表示11的二进制数计算</span><br><span class="line">11 / 2 = 5 余 1   --&gt;    1</span><br><span class="line">5  / 2 = 2 余 1   --&gt;  	 1</span><br><span class="line">2  / 2 = 1 余 0   --&gt;	 0	</span><br><span class="line">1  / 2 = 0 余 1	  --&gt;    1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>所有的小数转换成二进制：看如下代码：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//0.1转换为二进制</span><br><span class="line">0.1 * 2 = 0.2  --&gt;0</span><br><span class="line">0.2 * 2 = 0.4  --&gt;0</span><br><span class="line">0.4 * 2 = 0.8  --&gt;0</span><br><span class="line">0.8 * 6 = 1.6  --&gt;1//然后去掉1</span><br><span class="line">0.6 * 2 = 1.2  --&gt;1</span><br><span class="line">0.2 * 2 = 0.4  --&gt;0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这个是一直循环下去的，所以呢计算机无法精确表示0.1，这个数值而是无限接近近似表示。</p>
+</li>
+<li><p>所以11的二进制数是1011，这样开来所有的整数最后都会被1 / 2 = 0这样结束。</p>
+<h3 id="2、我们先来看这样的一段代码"><a href="#2、我们先来看这样的一段代码" class="headerlink" title="2、我们先来看这样的一段代码"></a>2、我们先来看这样的一段代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> dou = <span class="number">234533464.456576564675</span>d;</span><br><span class="line">System.out.println(<span class="string">"234533464.456576564675的运行结果："</span>+dou);</span><br><span class="line"><span class="keyword">float</span> f = <span class="number">997979759f</span>;</span><br><span class="line">System.out.println(<span class="string">"997979759的运行结果："</span>+f);</span><br><span class="line">System.out.println(<span class="string">"0.1+0.2的运行结果："</span>+(<span class="number">0.2</span> +  <span class="number">0.1</span>));</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>结果是：<br><img src="https://img-blog.csdnimg.cn/20190728161652847.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>惊奇不惊奇，刺激不刺激？这种采用浮点数的方法，输出的结果就是错误的。前两位后面的精度丢失，最后一个表示的不准确。</li>
+<li>同样再看另外一段代码<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> f1 = <span class="number">20014999</span>;  </span><br><span class="line"><span class="keyword">double</span> d1 = f1;  </span><br><span class="line"><span class="keyword">double</span> d2 = <span class="number">20014999</span>;  </span><br><span class="line">System.out.println(<span class="string">"f="</span> + f1);  </span><br><span class="line">System.out.println(<span class="string">"d="</span> + d1);  </span><br><span class="line">System.out.println(<span class="string">"d2="</span> + d2);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>运行结果：<br><img src="https://img-blog.csdnimg.cn/20190728162253855.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>又是满满的疑问<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> a = <span class="number">0.3</span>d;</span><br><span class="line">System.out.println(<span class="number">0.2</span>d+<span class="number">0.1</span>d);</span><br><span class="line">System.out.println(a);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20190728162433811.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>我估计第三个直接刷新了好多人的三观，为啥直接存储就输出正确，运算就出错了呢？接下来我就围绕这几个问题对对大家一一解答。<h3 id="3、我们先了解一下浮点数在计算机中是如何存储的。"><a href="#3、我们先了解一下浮点数在计算机中是如何存储的。" class="headerlink" title="3、我们先了解一下浮点数在计算机中是如何存储的。"></a>3、我们先了解一下浮点数在计算机中是如何存储的。</h3></li>
+<li>float（32位浮点数）在计算机中的表示形式。</li>
+<li>浮点数存储都遵守IEEE754标准，具体的运算应该在计算机组成原理中会重点介绍，标准如下：<br>  <img src="https://img-blog.csdnimg.cn/2019072816343613.png" alt="在这里插入图片描述"><br>  其中S表示该浮点数的正负，E代表阶码，M代表的是尾数。<br>  一个十进制数可以表示为 :<br>  <img src="https://img-blog.csdnimg.cn/20190728164422822.png" alt="在这里插入图片描述"><ul>
+<li>例如：20.59375在计算机中存储为：</li>
+<li>20.59375 = 10100.10011，这里的s = 0，E = 4 + 127 = 131 ，M = 01001001；</li>
+<li>所以存储格式为0100 001 1010 0100 1100 0000 0000 0000。这里就是存储在计算机中的数据。</li>
+<li>至于为什么要加127，这个是IEEE754标准规定的，但是在维基百科以及其他文献中也并没有直接说为什么是这样。</li>
+</ul>
+</li>
+<li>double（64位浮点数）在计算机中的表示形式。<br><img src="https://img-blog.csdnimg.cn/2019072817060165.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190728170958818.png" alt="在这里插入图片描述"></li>
+<li>同理这个和上面的是一样的。</li>
+<li>实际上这个1.M表示的是比如1000.111这个数，小数点移动位为1.000111，在754标准下存储为000111位数，这么做相当于是能够多保存一位，所以float可以保存的尾数是24位（23），double为53位而不是（52）。<h3 id="4、我们首先来解决第二个问题"><a href="#4、我们首先来解决第二个问题" class="headerlink" title="4、我们首先来解决第二个问题"></a>4、我们首先来解决第二个问题</h3></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> f1 = <span class="number">20014999</span>;  </span><br><span class="line"><span class="keyword">double</span> d1 = f;  </span><br><span class="line"><span class="keyword">double</span> d2 = <span class="number">20014999</span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190728202840901.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>刚才不是说所有的整数都不会丢失精度吗，这个这么不一样呢。这个实际上也是因为float保留的位数太小造成的。</li>
+<li>我们来分析一下：先输出他们的二进制位数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> f1 = <span class="number">20014999</span>;  </span><br><span class="line"><span class="keyword">double</span> d1 = f1;  </span><br><span class="line"><span class="keyword">double</span> d2 = <span class="number">20014999</span>;</span><br><span class="line"><span class="keyword">long</span> l1 = Float.floatToIntBits(f1);</span><br><span class="line"><span class="keyword">long</span> l2 = Double.doubleToLongBits(d1);</span><br><span class="line"><span class="keyword">long</span> l3 = Double.doubleToLongBits(d2);</span><br><span class="line">System.out.println(<span class="string">"f1="</span> + Long.toBinaryString(l1));  </span><br><span class="line">System.out.println(<span class="string">"d1="</span> + Long.toBinaryString(l2));  </span><br><span class="line">System.out.println(<span class="string">"d2="</span> + Long.toBinaryString(l3));</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190728202927876.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>这里遵循IEEE754标准，但是注意这里面没有符号位，这三种结果为什么不同，我们这就分析，首先我告诉大家d2的输出结果是正确的。其中前11位是阶码1000 0010 111= 1047，后面的0011 0001 0110 0111 1001 0111 0000 0000 0000 0000 0000 0000 0000便是尾数，所以1047 - 1023 = 24，所以这个数真正的结果就是（别忘了1.M）：1.0011 0001 0110 0111 1001 0111然后小数点向右移动24位，就是10011 0001 0110 0111 1001 0111 = 20014999；<br><img src="https://img-blog.csdnimg.cn/20190728203621127.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDU4ODQ5NQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li>我们再来看第一个我们对比着尾数1.00110001011001111001100就会发现这里的尾数要比1.001100010110011110010111少了一位，而且少的一位是1，所以进行舍入处理，进行进位变成了1.00110001011001111001100。这样就产生了误差。也就变成了20015000。大家要清楚这里不光是尾数的位数少了还有相应的进位处理。同时要记得这里面float只能保存24位小数，double可以保留53位。</li>
+<li>第二个就不用说了，由于本身f是错的，所以呢，赋值给d1之后仍然是是错的。</li>
+<li>第三个由于54尾尾数可以放得下该数值的二进制数，所以是正确的。</li>
+<li>到此为止呢，大家要明确一个概念就是，如果保存的浮点数超过了，该类型的最大精度，那么就会产生是很大很严重的问题，而且存入计算机中就会是存储的错的。明确这一点之后也就产生了我们第三个问题（非常奇怪的问题），所以呢我们最后来说这个问题。<h3 id="5、解决第一个问题。"><a href="#5、解决第一个问题。" class="headerlink" title="5、解决第一个问题。"></a>5、解决第一个问题。</h3></li>
+<li>讲过第二个问题之后，第一个问题就非常好理解了，我们通过IEEE754的算法，可以得到这两个数的二进制表示形式，当用754标准去选取尾数的时候呢，就会截取掉一部分的尾数，造成精度丢失，其实原理是一样的。234533464.456576564675 = 2.34533464456576564675*e8,然后仍然是转换成754标准就失去了一些精度。具体的算法需要朋友们找相关的资料，这里不在赘述。<h3 id="6、最奇怪的问题第三个问题。"><a href="#6、最奇怪的问题第三个问题。" class="headerlink" title="6、最奇怪的问题第三个问题。"></a>6、最奇怪的问题第三个问题。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">double a = 0.1d;</span><br><span class="line">double b = 0.2d;</span><br><span class="line">double c = a + b;</span><br><span class="line">System.out.println(a+&quot;的二进制数:&quot;+Long.toBinaryString(Double.doubleToLongBits(a)));</span><br><span class="line">System.out.println(b+&quot;的二进制数:&quot;+Long.toBinaryString(Double.doubleToLongBits(b)));</span><br><span class="line">System.out.println(c+&quot;的二进制数:&quot;+Long.toBinaryString(Double.doubleToLongBits(c)));</span><br><span class="line">System.out.println(0.3+&quot;                的二进制数:&quot;+Long.toBinaryString(Double.doubleToLongBits(0.3d)));</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/2019072912291572.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>大家可以看到直接存储的0.3和计算之后出现的（数学上来说的0.3）在计算机中保存的二进制编码是不同的，原因就在于首先计算机中无法精确表示0.1和0.2，所以实际上a，b并不是真正的0.1和0.2，已经出现了误差，所以相加之后计算出来的值就是错的，也就是0.30000000000000004。那至于为什么能够出现直接存储就可以正常显示呢，是由于编译器优化的结果，在不计算的情况下，可以正常显示，但是没有任何意义，因为一旦参与计算或者比较大小，那么这个值就不代表数学意义上的0.1了。</li>
+</ul>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2019年07月29日 14:35</p>
+        <p>原始链接： <a class="post-url" href="/2019/07/29/关于浮点数丢失精度的原理/" title="关于浮点数丢失精度的原理">https://zesystem.github.io/2019/07/29/关于浮点数丢失精度的原理/</a></p>
+        <footer>
+            <a href="https://zesystem.github.io">
+                <img src="/images/logo1.jpeg" alt="Zesystem">
+                Zesystem
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/07/29/关于浮点数丢失精度的原理/&title=《关于浮点数丢失精度的原理》 — Zesystem'blog&pic=/images/java.jpg" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zesystem.github.io/2019/07/29/关于浮点数丢失精度的原理/&title=《关于浮点数丢失精度的原理》 — Zesystem'blog&source=浮点数会存在精度丢失的现象，大很多金融的大项目中，都不去使用浮点数。因为这个数很危险，我们可以剖析一下原理。" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zesystem.github.io/2019/07/29/关于浮点数丢失精度的原理/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于浮点数丢失精度的原理》 — Zesystem'blog&url=https://zesystem.github.io/2019/07/29/关于浮点数丢失精度的原理/&via=https://zesystem.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zesystem.github.io/2019/07/29/关于浮点数丢失精度的原理/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zesystem.github.io/2019/07/29/关于浮点数丢失精度的原理/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/浮点数精度/" class="color1">浮点数精度</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+    <aside class="post-toc-pos post-toc-top" id="post-toc">
+        <nav class="post-toc-wrap">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、前言"><span class="post-toc-text">1、前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#首先我们必须要清楚"><span class="post-toc-text">首先我们必须要清楚</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#然后我们要清楚"><span class="post-toc-text">然后我们要清楚</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、我们先来看这样的一段代码"><span class="post-toc-text">2、我们先来看这样的一段代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、我们先了解一下浮点数在计算机中是如何存储的。"><span class="post-toc-text">3、我们先了解一下浮点数在计算机中是如何存储的。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#4、我们首先来解决第二个问题"><span class="post-toc-text">4、我们首先来解决第二个问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#5、解决第一个问题。"><span class="post-toc-text">5、解决第一个问题。</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#6、最奇怪的问题第三个问题。"><span class="post-toc-text">6、最奇怪的问题第三个问题。</span></a></li></ol>
+        </nav>
+    </aside>
+    
+
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/28/JavaScript预编译（执行期上下文）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">JavaScript预编译（执行期上下文）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+        <div id="SOHUCS" sid="关于浮点数丢失精度的原理" ></div>
+<script type="text/javascript">
+    (function(){
+        var appid = 'true';
+        var conf = 'true';
+        var width = window.innerWidth || document.documentElement.clientWidth;
+        if (width < 960) {
+            window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+    
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        This is Zesystem's personal blog site.
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "https://zesystem.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            <a class="category-link" href="/categories/Web前端开发/">Web前端开发</a><a class="category-link" href="/categories/java/">java</a>
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/tags1/" style="font-size: 10px;">tags1</a> <a href="/tags/tags2/" style="font-size: 10px;">tags2</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/浮点数精度/" style="font-size: 10px;">浮点数精度</a> <a href="/tags/预编译/" style="font-size: 10px;">预编译</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>我的家</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>干货s</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>关于me</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/tags1/" style="font-size: 10px;">tags1</a> <a href="/tags/tags2/" style="font-size: 10px;">tags2</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/浮点数精度/" style="font-size: 10px;">浮点数精度</a> <a href="/tags/预编译/" style="font-size: 10px;">预编译</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  <script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  <script src="/js/animate.js"></script>
+
+
+  <script src="/js/pop-img.js"></script>
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>
