@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <!-- Hello World | Zesystem&#39;blog -->
+  <!-- js底层原理作用域和作用域链 | Zesystem&#39;blog -->
   <title>Zesystem's  Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="This is Zesystem's blog.">
@@ -11,18 +11,23 @@
   
     <meta name="keywords" content="MinHow,MinHow's Blog" />
     -->
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords" content="tags1,tags2">
+  <meta name="description" content="前几天刚刚整理的 JavaScript预编译（执行期上下文），这里需要提前明白上一篇文章，这篇文章也是为闭包铺垫理论知识。">
+<meta name="keywords" content="作用域链,scope">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://zesystem.github.io/2019/07/27/hello-world/index.html">
+<meta property="og:title" content="js底层原理作用域和作用域链">
+<meta property="og:url" content="https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/index.html">
 <meta property="og:site_name" content="Zesystem&#39;blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="前几天刚刚整理的 JavaScript预编译（执行期上下文），这里需要提前明白上一篇文章，这篇文章也是为闭包铺垫理论知识。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-28T02:35:35.193Z">
+<meta property="og:image" content="https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/1.png">
+<meta property="og:image" content="https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/2.png">
+<meta property="og:image" content="https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/3.png">
+<meta property="og:image" content="https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/4.png">
+<meta property="og:updated_time" content="2019-07-31T14:16:43.843Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="js底层原理作用域和作用域链">
+<meta name="twitter:description" content="前几天刚刚整理的 JavaScript预编译（执行期上下文），这里需要提前明白上一篇文章，这篇文章也是为闭包铺垫理论知识。">
+<meta name="twitter:image" content="https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/1.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -124,20 +129,27 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-js底层原理作用域和作用域链" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      Hello World
+      js底层原理作用域和作用域链
     </h1>
     <div class="post-title-bar">
       <ul>
           
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Web前端开发/">Web前端开发</a>
+                  
+              </li>
+          
         <li>
-          <i class="fa fa-calendar"></i>  2019-07-27
+          <i class="fa fa-calendar"></i>  2019-07-31
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -153,24 +165,39 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo <span class="keyword">new</span> <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+            <p>前几天刚刚整理的 JavaScript预编译（执行期上下文），这里需要提前明白上一篇文章，这篇文章也是为闭包铺垫理论知识。</p>
+<a id="more"></a>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="1、作用域（-scope-）"><a href="#1、作用域（-scope-）" class="headerlink" title="1、作用域（[[scope]]）"></a>1、作用域（[[scope]]）</h3><ul>
+<li>[[scope]]：每一个js函数都是一个对象，对象中有些属性我们可以访问，但是有些不可以，这些属性仅供js引擎存取，[[scope]]就是其中的一个。[[scope]]指的是我们所说的作用域（作用域链），其中存储了运行期期上下文的集合。每一个函数都有一个作用域。</li>
+<li>运行期上下文：当函数执行的过程之前，会创建一个称为执行期上下文的内部对象。一个执行期上下文定义了一个函数执行时的环境，函数每次执行对应执行期上下文都是独一无二的，所以多次调用一个函数会导致创建多个执行期上下文，当函数执行完毕，它所产生的执行期上下文会被销毁。</li>
+<li>看不懂概念不要紧，可以看下面的例子，然后看概念就会理解。</li>
+<li>如果不知道执行期上下文的可以看：<br>第二篇：JavaScript预编译（执行期上下文）<h3 id="2、作用域链"><a href="#2、作用域链" class="headerlink" title="2、作用域链"></a>2、作用域链</h3></li>
+<li>[[scope]]中所存储的执行期上下文对象的集合，这个集合呈链式链接，我们把这种链式链接叫做作用域链。<h3 id="3、要知道"><a href="#3、要知道" class="headerlink" title="3、要知道"></a>3、要知道</h3></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(Person.name);</span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype);</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里的Person.name等就是可以访问的，但是Per’son.[[scope]]就是我们访问不到的。</li>
+<li>这里每次调用都会产生一个新的AO对象。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">test() -&gt; 产生一个AO&#123;&#125; 用完销毁</span><br><span class="line">test() -&gt; 产生一个AO&#123;&#125; 用完销毁</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3、例子"><a href="#3、例子" class="headerlink" title="3、例子"></a>3、例子</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">         <span class="keyword">var</span> b = <span class="number">234</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">var</span> a = <span class="number">123</span>;</span><br><span class="line">     b();</span><br><span class="line">&#125;</span><br><span class="line"> <span class="keyword">var</span> glob = <span class="number">100</span>;</span><br><span class="line"> a();</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<ul>
+<li>a函数定义时，产生了一个[[scope]]，这里实际上只有一个GO，全局的作用域。<br><img src="1.png" alt></li>
+<li>a在要执行之前，产生了一个执行期上下文。在这里，新创建的AO是作用域的顶端，我们在查找变量的时候就是沿着作用域链去查找变量，从顶端开始。这也就是为什么，在函数调用时，先查找自己是否含有这个属性，如果没有这个属性就去父级查找，这就是原理。这就是a函数的作用域链了。可以理解为[[scope]]为一个数组。函数本身的预编译形成AO永远是放在最顶端。<br><img src="2.png" alt></li>
+<li>由于a函数的执行内部执行b()，所以b函数只在执行之前又产生了一个执行期上下文。所以b的作用域链直接基于a的作用域链。</li>
+<li>b函数被创建时的作用域环境：<br><img src="3.png" alt></li>
+<li>b()执行之前进行预编译，形成的作用域链。<br><img src="4.png" alt></li>
+<li>当b函数查找变量的时候，自顶向下查找变量。<h6 id="这里是为下一篇闭包铺垫理论知识。"><a href="#这里是为下一篇闭包铺垫理论知识。" class="headerlink" title="这里是为下一篇闭包铺垫理论知识。"></a>这里是为下一篇闭包铺垫理论知识。</h6></li>
+</ul>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月28日 10:35</p>
-        <p>原始链接： <a class="post-url" href="/2019/07/27/hello-world/" title="Hello World">https://zesystem.github.io/2019/07/27/hello-world/</a></p>
+        <p>最后更新： 2019年07月31日 22:16</p>
+        <p>原始链接： <a class="post-url" href="/2019/07/31/js底层原理作用域和作用域链/" title="js底层原理作用域和作用域链">https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/</a></p>
         <footer>
             <a href="https://zesystem.github.io">
                 <img src="/images/logo1.jpeg" alt="Zesystem">
@@ -227,7 +254,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/07/27/hello-world/&title=《Hello World》 — Zesystem'blog&pic=https://zesystem.github.ioimages/logo1.jpeg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/&title=《js底层原理作用域和作用域链》 — Zesystem'blog&pic=/images/scope.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -237,22 +264,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zesystem.github.io/2019/07/27/hello-world/&title=《Hello World》 — Zesystem'blog&source=This is Zesystem's blog." data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/&title=《js底层原理作用域和作用域链》 — Zesystem'blog&source=前几天刚刚整理的 JavaScript预编译（执行期上下文），这里需要提前明白上一篇文章，这篇文章也是为闭包铺垫理论知识。" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zesystem.github.io/2019/07/27/hello-world/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello World》 — Zesystem'blog&url=https://zesystem.github.io/2019/07/27/hello-world/&via=https://zesystem.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《js底层原理作用域和作用域链》 — Zesystem'blog&url=https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/&via=https://zesystem.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zesystem.github.io/2019/07/27/hello-world/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -262,7 +289,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zesystem.github.io/2019/07/27/hello-world/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -274,9 +301,9 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/tags1/" class="color1">tags1</a>
+    <a href="/tags/作用域链/" class="color5">作用域链</a>
       
-    <a href="/tags/tags2/" class="color1">tags2</a>
+    <a href="/tags/scope/" class="color1">scope</a>
       
   </li>
 
@@ -289,30 +316,25 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Quick-Start"><span class="post-toc-text">Quick Start</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Create-a-new-post"><span class="post-toc-text">Create a new post</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Run-server"><span class="post-toc-text">Run server</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Generate-static-files"><span class="post-toc-text">Generate static files</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Deploy-to-remote-sites"><span class="post-toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1、作用域（-scope-）"><span class="post-toc-text">1、作用域（[[scope]]）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2、作用域链"><span class="post-toc-text">2、作用域链</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、要知道"><span class="post-toc-text">3、要知道</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#3、例子"><span class="post-toc-text">3、例子</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#这里是为下一篇闭包铺垫理论知识。"><span class="post-toc-text">这里是为下一篇闭包铺垫理论知识。</span></a></li></ol></li></ol></li></ol></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2019/07/28/JavaScript预编译（执行期上下文）/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          JavaScript预编译（执行期上下文）
-        
-      </span>
-    </a>
   
+    <a href="/2019/07/31/CSS权重/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">CSS权重</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
   
 </nav>
 
 
 
     
-        <div id="SOHUCS" sid="hello-world" ></div>
+        <div id="SOHUCS" sid="js底层原理作用域和作用域链" ></div>
 <script type="text/javascript">
     (function(){
         var appid = 'true';
