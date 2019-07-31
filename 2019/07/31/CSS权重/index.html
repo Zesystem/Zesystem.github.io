@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <!-- Hello World | Zesystem&#39;blog -->
+  <!-- CSS权重 | Zesystem&#39;blog -->
   <title>Zesystem's  Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="This is Zesystem's blog.">
@@ -11,18 +11,20 @@
   
     <meta name="keywords" content="MinHow,MinHow's Blog" />
     -->
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords" content="tags1,tags2">
+  <meta name="description" content="css在设置样式的时候，存在优先级的问题，比如设置了两个背景颜色，那么真正显示的究竟是哪一种颜色呢？">
+<meta name="keywords" content="css权重,css优先级">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://zesystem.github.io/2019/07/27/hello-world/index.html">
+<meta property="og:title" content="CSS权重">
+<meta property="og:url" content="https://zesystem.github.io/2019/07/31/CSS权重/index.html">
 <meta property="og:site_name" content="Zesystem&#39;blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="css在设置样式的时候，存在优先级的问题，比如设置了两个背景颜色，那么真正显示的究竟是哪一种颜色呢？">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-28T02:35:35.193Z">
+<meta property="og:image" content="https://zesystem.github.io/2019/07/31/CSS权重/1.png">
+<meta property="og:updated_time" content="2019-07-31T04:00:22.737Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="CSS权重">
+<meta name="twitter:description" content="css在设置样式的时候，存在优先级的问题，比如设置了两个背景颜色，那么真正显示的究竟是哪一种颜色呢？">
+<meta name="twitter:image" content="https://zesystem.github.io/2019/07/31/CSS权重/1.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -124,20 +126,27 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-CSS权重" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      Hello World
+      CSS权重
     </h1>
     <div class="post-title-bar">
       <ul>
           
+              <li>
+                  <i class="fa fa-book"></i>
+                  
+                      <a href="/categories/Web前端开发/">Web前端开发</a>
+                  
+              </li>
+          
         <li>
-          <i class="fa fa-calendar"></i>  2019-07-27
+          <i class="fa fa-calendar"></i>  2019-07-31
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -153,24 +162,23 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo <span class="keyword">new</span> <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+            <p>css在设置样式的时候，存在优先级的问题，比如设置了两个背景颜色，那么真正显示的究竟是哪一种颜色呢？</p>
+<a id="more"></a>
+<h2 id="一、问题提出？"><a href="#一、问题提出？" class="headerlink" title="一、问题提出？"></a>一、问题提出？</h2><p>请问div的背景颜色为红色还是绿色呢？</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">		div&#123;</span><br><span class="line">			width: 100px;</span><br><span class="line">			height: 100px;</span><br><span class="line">			background-color: red;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"background-color: green;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>答案为绿色。为什么会是绿色呢？难道存在代码执行的先后的覆盖问题？请看第二个问题。<br><img src="1.png" alt></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">		div&#123;</span><br><span class="line">			width: 100px;</span><br><span class="line">			height: 100px;</span><br><span class="line">		&#125;</span><br><span class="line">		#demo1&#123;</span><br><span class="line">			background-color: red;</span><br><span class="line">		&#125;</span><br><span class="line">		.demo2&#123;</span><br><span class="line">			background-color: green;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"demo2"</span> <span class="attr">id</span>=<span class="string">"demo1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>div的颜色为红色。当设置背景颜色的代码互换后div的背景颜色依然是红色。这说明并不是覆盖问题，读者可以自己试一试。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.demo2</span>&#123;</span><br><span class="line">		<span class="attribute">background-color</span>: green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#demo1</span>&#123;</span><br><span class="line">		<span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h2 id="二、问题的解释"><a href="#二、问题的解释" class="headerlink" title="二、问题的解释"></a>二、问题的解释</h2><p>在css的样式中存在权重，权重最高的执行相关的代码。<br>权值是256进制。<br>| 相关属性 | 权值 | 相关样例 |<br>|–|–|–|<br>| !important | Infinity | #only{background-color: yellow!important;} |<br>|行间样式|1000| p style = “” /p |<br>| id | 100 | #demo{} |<br>|class、属性、伪类|10|.demo{} 、 、a:hover{}|<br>| 标签、伪元素     |  1| div{} 、::after{} |<br>|通配符|0|*{}|<br>第一个问题中，由于行间样式的权值要比内联样式的权值要高，所以执行行间样式的代码。第二个问题中，由于id的权值要比class权值高，所以执行id的代码。</p>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月28日 10:35</p>
-        <p>原始链接： <a class="post-url" href="/2019/07/27/hello-world/" title="Hello World">https://zesystem.github.io/2019/07/27/hello-world/</a></p>
+        <p>最后更新： 2019年07月31日 12:00</p>
+        <p>原始链接： <a class="post-url" href="/2019/07/31/CSS权重/" title="CSS权重">https://zesystem.github.io/2019/07/31/CSS权重/</a></p>
         <footer>
             <a href="https://zesystem.github.io">
                 <img src="/images/logo1.jpeg" alt="Zesystem">
@@ -227,7 +235,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/07/27/hello-world/&title=《Hello World》 — Zesystem'blog&pic=https://zesystem.github.ioimages/logo1.jpeg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/07/31/CSS权重/&title=《CSS权重》 — Zesystem'blog&pic=/images/css.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -237,22 +245,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zesystem.github.io/2019/07/27/hello-world/&title=《Hello World》 — Zesystem'blog&source=This is Zesystem's blog." data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zesystem.github.io/2019/07/31/CSS权重/&title=《CSS权重》 — Zesystem'blog&source=css在设置样式的时候，存在优先级的问题，比如设置了两个背景颜色，那么真正显示的究竟是哪一种颜色呢？" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zesystem.github.io/2019/07/27/hello-world/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zesystem.github.io/2019/07/31/CSS权重/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello World》 — Zesystem'blog&url=https://zesystem.github.io/2019/07/27/hello-world/&via=https://zesystem.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CSS权重》 — Zesystem'blog&url=https://zesystem.github.io/2019/07/31/CSS权重/&via=https://zesystem.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zesystem.github.io/2019/07/27/hello-world/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zesystem.github.io/2019/07/31/CSS权重/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -262,7 +270,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zesystem.github.io/2019/07/27/hello-world/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zesystem.github.io/2019/07/31/CSS权重/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -274,9 +282,9 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/tags1/" class="color1">tags1</a>
+    <a href="/tags/css权重/" class="color1">css权重</a>
       
-    <a href="/tags/tags2/" class="color1">tags2</a>
+    <a href="/tags/css优先级/" class="color2">css优先级</a>
       
   </li>
 
@@ -289,30 +297,25 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Quick-Start"><span class="post-toc-text">Quick Start</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Create-a-new-post"><span class="post-toc-text">Create a new post</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Run-server"><span class="post-toc-text">Run server</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Generate-static-files"><span class="post-toc-text">Generate static files</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Deploy-to-remote-sites"><span class="post-toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、问题提出？"><span class="post-toc-text">一、问题提出？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、问题的解释"><span class="post-toc-text">二、问题的解释</span></a></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2019/07/28/JavaScript预编译（执行期上下文）/" id="article-nav-newer" class="article-nav-link-wrap">
-
-      <span class="article-nav-title">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-        
-          JavaScript预编译（执行期上下文）
-        
-      </span>
-    </a>
   
+    <a href="/2019/07/30/史上最好理解的Unicode编码讲解（Unicode的前世今生）/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">史上最好理解的Unicode编码讲解（Unicode的前世今生）</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
   
 </nav>
 
 
 
     
-        <div id="SOHUCS" sid="hello-world" ></div>
+        <div id="SOHUCS" sid="CSS权重" ></div>
 <script type="text/javascript">
     (function(){
         var appid = 'true';
