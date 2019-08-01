@@ -12,7 +12,7 @@
     <meta name="keywords" content="MinHow,MinHow's Blog" />
     -->
   <meta name="description" content="前几天刚刚整理的 JavaScript预编译（执行期上下文），这里需要提前明白上一篇文章，这篇文章也是为闭包铺垫理论知识。">
-<meta name="keywords" content="作用域链,scope">
+<meta name="keywords" content="作用域链,scope,执行期上下文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js底层原理作用域和作用域链">
 <meta property="og:url" content="https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/index.html">
@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/2.png">
 <meta property="og:image" content="https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/3.png">
 <meta property="og:image" content="https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/4.png">
-<meta property="og:updated_time" content="2019-07-31T14:16:43.843Z">
+<meta property="og:updated_time" content="2019-08-01T15:23:48.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js底层原理作用域和作用域链">
 <meta name="twitter:description" content="前几天刚刚整理的 JavaScript预编译（执行期上下文），这里需要提前明白上一篇文章，这篇文章也是为闭包铺垫理论知识。">
@@ -196,7 +196,7 @@
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月31日 22:16</p>
+        <p>最后更新： 2019年08月01日 23:23</p>
         <p>原始链接： <a class="post-url" href="/2019/07/31/js底层原理作用域和作用域链/" title="js底层原理作用域和作用域链">https://zesystem.github.io/2019/07/31/js底层原理作用域和作用域链/</a></p>
         <footer>
             <a href="https://zesystem.github.io">
@@ -305,6 +305,8 @@
       
     <a href="/tags/scope/" class="color1">scope</a>
       
+    <a href="/tags/执行期上下文/" class="color2">执行期上下文</a>
+      
   </li>
 
         </ul>
@@ -322,6 +324,16 @@
     
 
 <nav id="article-nav">
+  
+    <a href="/2019/08/01/通俗易懂的js闭包/" id="article-nav-newer" class="article-nav-link-wrap">
+
+      <span class="article-nav-title">
+        <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+        
+          通俗易懂的js闭包
+        
+      </span>
+    </a>
   
   
     <a href="/2019/07/31/CSS权重/" id="article-nav-older" class="article-nav-link-wrap">
@@ -397,7 +409,7 @@
             <a class="category-link" href="/categories/Web前端开发/">Web前端开发</a><a class="category-link" href="/categories/java基础知识/">java基础知识</a><a class="category-link" href="/categories/计算机基础/">计算机基础</a>
         </div>
         <div id="sidebar-menu-box-tags">
-            <a href="/tags/css优先级/" style="font-size: 10px;">css优先级</a> <a href="/tags/css权重/" style="font-size: 10px;">css权重</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/tags1/" style="font-size: 10px;">tags1</a> <a href="/tags/tags2/" style="font-size: 10px;">tags2</a> <a href="/tags/uft-16编码/" style="font-size: 10px;">uft-16编码</a> <a href="/tags/uft-8编码/" style="font-size: 10px;">uft-8编码</a> <a href="/tags/unicode编码/" style="font-size: 10px;">unicode编码</a> <a href="/tags/作用域链/" style="font-size: 10px;">作用域链</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/浮点数精度/" style="font-size: 10px;">浮点数精度</a> <a href="/tags/预编译/" style="font-size: 10px;">预编译</a>
+            <a href="/tags/css优先级/" style="font-size: 10px;">css优先级</a> <a href="/tags/css权重/" style="font-size: 10px;">css权重</a> <a href="/tags/scope/" style="font-size: 20px;">scope</a> <a href="/tags/tags1/" style="font-size: 10px;">tags1</a> <a href="/tags/tags2/" style="font-size: 10px;">tags2</a> <a href="/tags/uft-16编码/" style="font-size: 10px;">uft-16编码</a> <a href="/tags/uft-8编码/" style="font-size: 10px;">uft-8编码</a> <a href="/tags/unicode编码/" style="font-size: 10px;">unicode编码</a> <a href="/tags/作用域链/" style="font-size: 20px;">作用域链</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/执行期上下文/" style="font-size: 20px;">执行期上下文</a> <a href="/tags/浮点数精度/" style="font-size: 10px;">浮点数精度</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a> <a href="/tags/预编译/" style="font-size: 10px;">预编译</a>
         </div>
     </div>
     <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
@@ -430,7 +442,7 @@
     <div class="mobile-header-tag-container">
         <span class="title">Tags</span>
         <div id="mobile-header-container-tags">
-            <a href="/tags/css优先级/" style="font-size: 10px;">css优先级</a> <a href="/tags/css权重/" style="font-size: 10px;">css权重</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/tags1/" style="font-size: 10px;">tags1</a> <a href="/tags/tags2/" style="font-size: 10px;">tags2</a> <a href="/tags/uft-16编码/" style="font-size: 10px;">uft-16编码</a> <a href="/tags/uft-8编码/" style="font-size: 10px;">uft-8编码</a> <a href="/tags/unicode编码/" style="font-size: 10px;">unicode编码</a> <a href="/tags/作用域链/" style="font-size: 10px;">作用域链</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/浮点数精度/" style="font-size: 10px;">浮点数精度</a> <a href="/tags/预编译/" style="font-size: 10px;">预编译</a>
+            <a href="/tags/css优先级/" style="font-size: 10px;">css优先级</a> <a href="/tags/css权重/" style="font-size: 10px;">css权重</a> <a href="/tags/scope/" style="font-size: 20px;">scope</a> <a href="/tags/tags1/" style="font-size: 10px;">tags1</a> <a href="/tags/tags2/" style="font-size: 10px;">tags2</a> <a href="/tags/uft-16编码/" style="font-size: 10px;">uft-16编码</a> <a href="/tags/uft-8编码/" style="font-size: 10px;">uft-8编码</a> <a href="/tags/unicode编码/" style="font-size: 10px;">unicode编码</a> <a href="/tags/作用域链/" style="font-size: 20px;">作用域链</a> <a href="/tags/变量提升/" style="font-size: 10px;">变量提升</a> <a href="/tags/执行期上下文/" style="font-size: 20px;">执行期上下文</a> <a href="/tags/浮点数精度/" style="font-size: 10px;">浮点数精度</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a> <a href="/tags/预编译/" style="font-size: 10px;">预编译</a>
         </div>
     </div>
 </div>

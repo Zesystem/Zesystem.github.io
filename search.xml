@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[通俗易懂的js闭包]]></title>
+    <url>%2F2019%2F08%2F01%2F%E9%80%9A%E4%BF%97%E6%98%93%E6%87%82%E7%9A%84js%E9%97%AD%E5%8C%85%2F</url>
+    <content type="text"><![CDATA[闭包在js中是非常重要的一部分，也是可以说最难的一部分，这篇文章讲带你去理解闭包与、作用域链、执行期上下文的关系，带你去理解js中查找查找变量的底层原理。 1、闭包是什么鬼？ 当内部函数被保存到了外部时，将会生成闭包。闭包会导致原有的作用域链不释放，造成内存泄露。 如果i不知道作用域链是什么鬼，那么请看前两篇。12345678function outer()&#123; function inner()&#123; &#125; return inner;&#125;var demo = outer();demo(); 2、闭包是这么个东西 首先，在执行var demo = outer();之前（这个是一个函数调用），outer函数产生了一个执行期上下文，产生了一个作用域链。 执行后将inner函数给到了demo 1var demo = function inner()&#123; &#125; 再次执行的demo();之前，inner本身产生了一个执行期上下文，和一个新的作用域链，outer()。执行完他的作用域链就消失了。 最后执行，执行函数。3、举个栗子示例1123456789101112function add()&#123; var count = 0; function demo()&#123; count++; console.log(count); &#125; return demo;&#125;var counter = add();counter();counter();counter(); 如果不知道闭包这个概念，一定会认为是输出三个1； 我们来分析一下三个 counter()；第一个执行，这里通过count++，加加到作用域链中。输出1 然后执行 counter()，这里的 数据再次加一，之前说过，函数中所有查找变量和对数据的操作都是查找的作用域链。 同理，第三次。示例2123456789101112131415function test()&#123; var num = 100; function a()&#123; num++; console.log(num); &#125; function b()&#123; num--; console.log(num); &#125; return [a,b];&#125;var c = test();c[0]();c[1](); 这个和第一题也是同理示例3 1234567891011121314function eater()&#123; var food = ""; function a()&#123; console.log("i am eating" + food); food = ""; &#125; function b(myfood)&#123; food = myfood; &#125; return [a,b]; &#125; var eater1 = eater(); eater1[1]('banana'); eater1[0](); 这里的例子展示的是两个函数，两个作用域链，互不干扰。示例4 1234567891011121314function test()&#123; var arr = []; for(var i = 0;i &lt; 10;i++)&#123; arr[i] = function ()&#123; console.log(i + " "); &#125; &#125;; return arr; &#125; var myarr = test(); for(var j = 0;j &lt; 10;j++) &#123; myarr[j](); &#125; 如果不知道执行期上下文、作用域链、闭包的童鞋们一定会认为是输出0 - 9，但是结果： 我们来分析一下：这里面的for循环执行完之后是这样的i = 10；这里的要点在于arr[i] = function (){ }，这里输出的i是查找作用域链中的，在for循环中无法确定里面的值。作用域链： 更改代码为： 123456789101112131415function test()&#123; var arr = []; for(var i = 0;i &lt; 10;i++)&#123; (function (j)&#123; arr[j] = function ()&#123; document.write(j + " "); &#125; &#125;(i)); &#125; return arr;&#125;var myarr = test();for(var j = 0;j &lt; 10;j++)&#123; myarr[j](); &#125; 运行结果： (function(){})在test和arr[i]之间多加了一层的作用域。这样就可以正常输出了。]]></content>
+      <categories>
+        <category>Web前端开发</category>
+      </categories>
+      <tags>
+        <tag>作用域链</tag>
+        <tag>scope</tag>
+        <tag>执行期上下文</tag>
+        <tag>闭包</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[js底层原理作用域和作用域链]]></title>
     <url>%2F2019%2F07%2F31%2Fjs%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE%2F</url>
     <content type="text"><![CDATA[前几天刚刚整理的 JavaScript预编译（执行期上下文），这里需要提前明白上一篇文章，这篇文章也是为闭包铺垫理论知识。 1、作用域（[[scope]]） [[scope]]：每一个js函数都是一个对象，对象中有些属性我们可以访问，但是有些不可以，这些属性仅供js引擎存取，[[scope]]就是其中的一个。[[scope]]指的是我们所说的作用域（作用域链），其中存储了运行期期上下文的集合。每一个函数都有一个作用域。 运行期上下文：当函数执行的过程之前，会创建一个称为执行期上下文的内部对象。一个执行期上下文定义了一个函数执行时的环境，函数每次执行对应执行期上下文都是独一无二的，所以多次调用一个函数会导致创建多个执行期上下文，当函数执行完毕，它所产生的执行期上下文会被销毁。 看不懂概念不要紧，可以看下面的例子，然后看概念就会理解。 如果不知道执行期上下文的可以看：第二篇：JavaScript预编译（执行期上下文）2、作用域链 [[scope]]中所存储的执行期上下文对象的集合，这个集合呈链式链接，我们把这种链式链接叫做作用域链。3、要知道 12345function Person()&#123;&#125;console.log(Person.name);console.log(Person.prototype); 这里的Person.name等就是可以访问的，但是Per’son.[[scope]]就是我们访问不到的。 这里每次调用都会产生一个新的AO对象。12345function test()&#123; &#125;test() -&gt; 产生一个AO&#123;&#125; 用完销毁test() -&gt; 产生一个AO&#123;&#125; 用完销毁 3、例子123456789function a()&#123; function b()&#123; var b = 234; &#125; var a = 123; b();&#125; var glob = 100; a(); a函数定义时，产生了一个[[scope]]，这里实际上只有一个GO，全局的作用域。 a在要执行之前，产生了一个执行期上下文。在这里，新创建的AO是作用域的顶端，我们在查找变量的时候就是沿着作用域链去查找变量，从顶端开始。这也就是为什么，在函数调用时，先查找自己是否含有这个属性，如果没有这个属性就去父级查找，这就是原理。这就是a函数的作用域链了。可以理解为[[scope]]为一个数组。函数本身的预编译形成AO永远是放在最顶端。 由于a函数的执行内部执行b()，所以b函数只在执行之前又产生了一个执行期上下文。所以b的作用域链直接基于a的作用域链。 b函数被创建时的作用域环境： b()执行之前进行预编译，形成的作用域链。 当b函数查找变量的时候，自顶向下查找变量。这里是为下一篇闭包铺垫理论知识。]]></content>
@@ -10,6 +24,7 @@
       <tags>
         <tag>作用域链</tag>
         <tag>scope</tag>
+        <tag>执行期上下文</tag>
       </tags>
   </entry>
   <entry>
