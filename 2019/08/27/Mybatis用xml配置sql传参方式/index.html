@@ -3,7 +3,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <!-- JavaScript预编译（执行期上下文） | Zesystem&#39;blog -->
+  <!-- Mybatis用xml配置sql传参方式 | Zesystem&#39;blog -->
   <title>Zesystem's  Space</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="This is Zesystem's blog.">
@@ -11,21 +11,18 @@
   
     <meta name="keywords" content="MinHow,MinHow's Blog" />
     -->
-  <meta name="description" content="很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。">
-<meta name="keywords" content="变量提升,预编译">
+  <meta name="description" content="1、传入一个参数方法： 1int deleteByPrimaryKey(Integer id);  配置 1234&amp;lt;delete id=&quot;deleteByPrimaryKey&quot; parameterType=&quot;java.lang.Integer&quot;&amp;gt;   delete from t_people   where id = #&amp;#123;id,jdbcType=INTEGER&amp;#125; &amp;">
+<meta name="keywords" content="Mybatis,参数传递">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript预编译（执行期上下文）">
-<meta property="og:url" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/index.html">
+<meta property="og:title" content="Mybatis用xml配置sql传参方式">
+<meta property="og:url" content="https://zesystem.github.io/2019/08/27/Mybatis用xml配置sql传参方式/index.html">
 <meta property="og:site_name" content="Zesystem&#39;blog">
-<meta property="og:description" content="很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。">
+<meta property="og:description" content="1、传入一个参数方法： 1int deleteByPrimaryKey(Integer id);  配置 1234&amp;lt;delete id=&quot;deleteByPrimaryKey&quot; parameterType=&quot;java.lang.Integer&quot;&amp;gt;   delete from t_people   where id = #&amp;#123;id,jdbcType=INTEGER&amp;#125; &amp;">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/1.png">
-<meta property="og:image" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/2.png">
-<meta property="og:updated_time" content="2019-07-28T02:43:28.984Z">
+<meta property="og:updated_time" content="2019-08-27T07:24:46.980Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript预编译（执行期上下文）">
-<meta name="twitter:description" content="很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。">
-<meta name="twitter:image" content="https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/1.png">
+<meta name="twitter:title" content="Mybatis用xml配置sql传参方式">
+<meta name="twitter:description" content="1、传入一个参数方法： 1int deleteByPrimaryKey(Integer id);  配置 1234&amp;lt;delete id=&quot;deleteByPrimaryKey&quot; parameterType=&quot;java.lang.Integer&quot;&amp;gt;   delete from t_people   where id = #&amp;#123;id,jdbcType=INTEGER&amp;#125; &amp;">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -127,14 +124,14 @@
     </div>
 </header>
       <div class="outer">
-        <section id="main" class="body-wrap"><article id="post-JavaScript预编译（执行期上下文）" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main" class="body-wrap"><article id="post-Mybatis用xml配置sql传参方式" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="post-title" itemprop="name">
-      JavaScript预编译（执行期上下文）
+      Mybatis用xml配置sql传参方式
     </h1>
     <div class="post-title-bar">
       <ul>
@@ -142,12 +139,12 @@
               <li>
                   <i class="fa fa-book"></i>
                   
-                      <a href="/categories/Web前端开发/">Web前端开发</a>
+                      <a href="/categories/java框架/">java框架</a>
                   
               </li>
           
         <li>
-          <i class="fa fa-calendar"></i>  2019-07-28
+          <i class="fa fa-calendar"></i>  2019-08-27
         </li>
         <li>
           <i class="fa fa-eye"></i>
@@ -163,31 +160,52 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <p>很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。</p>
-<a id="more"></a>
+            <h4 id="1、传入一个参数"><a href="#1、传入一个参数" class="headerlink" title="1、传入一个参数"></a>1、传入一个参数</h4><p>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">deleteByPrimaryKey</span><span class="params">(Integer id)</span></span>;</span><br></pre></td></tr></table></figure>
 
-<h3 id="预编译（又叫“执行期上下文”）"><a href="#预编译（又叫“执行期上下文”）" class="headerlink" title="预编译（又叫“执行期上下文”）"></a>预编译（又叫“执行期上下文”）</h3><p>一般来说，预编译与闭包、作用域链和闭包是密切相关的，好多人包括在企业开发的人都听说过一句话叫做变量提升和“函数声明整体提升”。这个就是预编译后的一个小结果，所以今天自己总结了一下。分为以下几个步骤来说。</p>
-<h4 id="大家先看看这段代码"><a href="#大家先看看这段代码" class="headerlink" title="大家先看看这段代码"></a>大家先看看这段代码</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(a);</span><br><span class="line">var a = 1;</span><br></pre></td></tr></table></figure>
+<p>配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">"deleteByPrimaryKey"</span> <span class="attr">parameterType</span>=<span class="string">"java.lang.Integer"</span>&gt;</span></span><br><span class="line">   delete from t_people</span><br><span class="line">   where id = #&#123;id,jdbcType=INTEGER&#125;</span><br><span class="line"> <span class="tag">&lt;/<span class="name">delete</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="1.png" alt></p>
-<p>为什么变量的声明在输出的下面，却没有报错？值为什么是undefined？</p>
-<h4 id="大家再看看下面这段代码"><a href="#大家再看看下面这段代码" class="headerlink" title="大家再看看下面这段代码"></a>大家再看看下面这段代码</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">	function test(a,b)&#123;</span><br><span class="line">		console.log(a);</span><br><span class="line">		var a = 'demo';</span><br><span class="line">		console.log(a);</span><br><span class="line">		function a()&#123;&#125;</span><br><span class="line">		console.log(a);</span><br><span class="line">		var a = function ()&#123;&#125;</span><br><span class="line">		console.log(a);</span><br><span class="line">		console.log(b)</span><br><span class="line">		var b = 1;</span><br><span class="line">	&#125;</span><br><span class="line">	test(1);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里面可以直接用#{id}在sql语句中写。</p>
+<h4 id="2、2、-0-、-1-……索引方式，传入多个参数"><a href="#2、2、-0-、-1-……索引方式，传入多个参数" class="headerlink" title="2、2、#{0}、#{1}……索引方式，传入多个参数"></a>2、2、#{0}、#{1}……索引方式，传入多个参数</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">selectUserByNameAndAge</span><span class="params">(String name,<span class="keyword">int</span> age)</span></span>;</span><br></pre></td></tr></table></figure>
 
-<p>大家看到这段代码是不是很震惊呢？形参、变量名、函数名都是“a”，那么输出的结果会是怎样呢？</p>
-<p><img src="2.png" alt></p>
-<p>和大家想的一样吗？大家心里是不是有这么几个问题，前四个输出的都是a，为什么输出的结果不一样呢？而且b变量不是把1赋值给它了吗，为什么会是undefined？接下来咱们来讲讲什么是预编译（执行期上下文）。到最后大家就明白了。</p>
-<h4 id="预编译（‘执行期上下文’）"><a href="#预编译（‘执行期上下文’）" class="headerlink" title="预编译（‘执行期上下文’）"></a>预编译（‘执行期上下文’）</h4><p><strong>预编译发生在函数执行之前</strong>。划重点了啊！！！！！ 这句话很重要，函数执行之<strong>前</strong>也就是在这段程序开始之前，浏览器对马上要执行的函数进行预编译！！<br>预编译四部曲</p>
-<ol>
-<li>创建AO对象</li>
-<li>找形参和变量声明，将变量和形参作为AO属性名，值为undefined</li>
-<li>将实参和形参相统一</li>
-<li>在函数体里找到函数声明，值赋予函数体<br>最后程序输出变量值的时候，就是从AO对象中拿。</li>
-</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUserByNameAndAge"</span> <span class="attr">resultType</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">    select * from user where name = #&#123;0&#125; and age = #&#123;1&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里面用数组索引的形式指代。</p>
+<h4 id="3、-参数名-，传入多个参数，并且参数用-param注解"><a href="#3、-参数名-，传入多个参数，并且参数用-param注解" class="headerlink" title="3、#{参数名}，传入多个参数，并且参数用@param注解"></a>3、#{参数名}，传入多个参数，并且参数用@param注解</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">selectUserByNameAndAge</span><span class="params">(@param(<span class="string">"name"</span>)</span>String name,@<span class="title">param</span><span class="params">(<span class="string">"age"</span>)</span><span class="keyword">int</span> age)</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUserByNameAndAge"</span> <span class="attr">resultType</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">    select * from user where name = #&#123;name&#125; and age = #&#123;age&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以根据param名称查询</p>
+<h4 id="4、传入多个基本类型参数，参数用map封装，通过-mapKey-取值"><a href="#4、传入多个基本类型参数，参数用map封装，通过-mapKey-取值" class="headerlink" title="4、传入多个基本类型参数，参数用map封装，通过#{mapKey}取值"></a>4、传入多个基本类型参数，参数用map封装，通过#{mapKey}取值</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">selectUserByNameAndAge</span><span class="params">(Map map)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUserByNameAndAge"</span> <span class="attr">parameterType</span>=<span class="string">"Map"</span> <span class="attr">resultType</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">    select * from user where name = #&#123;name&#125; and age = #&#123;age&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的#{mapKey}指的就是#{name}、#{age}</p>
+<h4 id="5、使用map封装实体类-通过通过-mapKey-attributeName-取值"><a href="#5、使用map封装实体类-通过通过-mapKey-attributeName-取值" class="headerlink" title="5、使用map封装实体类,通过通过#{mapKey.attributeName}取值"></a>5、使用map封装实体类,通过通过#{mapKey.attributeName}取值</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">selectUserByNameAndAge</span><span class="params">(Map map)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectUserByNameAndAge"</span> <span class="attr">parameterType</span>=<span class="string">"Map"</span> <span class="attr">resultType</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">    select * from user where name = #&#123;userParam.name&#125; and age = #&#123;userParam.age&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Service</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">User userParam = <span class="keyword">new</span> User(<span class="string">"lucy"</span>,<span class="number">18</span>);</span><br><span class="line"></span><br><span class="line">Map&lt;String,Object&gt; map=<span class="keyword">new</span> HasMap&lt;String,Object&gt;();  </span><br><span class="line">map.put(<span class="string">"user"</span>,userParam);  </span><br><span class="line">User user = userDao.selectUserByNameAndAge(map);</span><br></pre></td></tr></table></figure>
+
+<h4 id="6、直接传入实体参数，通过-属性名-取值"><a href="#6、直接传入实体参数，通过-属性名-取值" class="headerlink" title="6、直接传入实体参数，通过#{属性名}取值"></a>6、直接传入实体参数，通过#{属性名}取值</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">selectUserByNameAndAge</span><span class="params">(User userParam)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"selectUserByNameAndAge"</span> parameterType=<span class="string">"User"</span> resultType=<span class="string">"user"</span>&gt;</span><br><span class="line">    select * from user where name = #&#123;userParam.name&#125; and age = #&#123;userParam.age&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7、使用"><a href="#7、使用" class="headerlink" title="7、使用${}"></a>7、使用${}</h4><p>#{}与${}的区别:<br>{}拿到值之后，拼装sql，会自动对值添加单引号”<br>${}则把拿到的值直接拼装进sql，如果需要加单引号”，必须手动添加，==一般用于动态传入表名或字段名使用==，同时需要添加属性statementType=”STATEMENT”，使用非预编译模式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;User&gt; <span class="title">selectUserByOrgId</span><span class="params">(String orgId)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=<span class="string">"selectUserByOrgId"</span> parameterType=<span class="string">"java.lang.String"</span> resultType=<span class="string">"user"</span> statementType=<span class="string">"STATEMENT"</span>&gt;</span><br><span class="line">    select * from user where org_id = $&#123;orgId&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Service</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String orgId = <span class="string">"100"</span>;</span><br><span class="line">orgId = <span class="string">"'"</span> + orgId + <span class="string">"'"</span>;</span><br><span class="line">List&lt;User&gt; users = userDao.selectUserByOrgId(orgId);</span><br></pre></td></tr></table></figure>
+
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年07月28日 10:43</p>
-        <p>原始链接： <a class="post-url" href="/2019/07/28/JavaScript预编译（执行期上下文）/" title="JavaScript预编译（执行期上下文）">https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/</a></p>
+        <p>最后更新： 2019年08月27日 15:24</p>
+        <p>原始链接： <a class="post-url" href="/2019/08/27/Mybatis用xml配置sql传参方式/" title="Mybatis用xml配置sql传参方式">https://zesystem.github.io/2019/08/27/Mybatis用xml配置sql传参方式/</a></p>
         <footer>
             <a href="https://zesystem.github.io">
                 <img src="/images/logo1.jpeg" alt="Zesystem">
@@ -244,7 +262,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/&title=《JavaScript预编译（执行期上下文）》 — Zesystem'blog&pic=/images/Javascript.jpg" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://zesystem.github.io/2019/08/27/Mybatis用xml配置sql传参方式/&title=《Mybatis用xml配置sql传参方式》 — Zesystem'blog&pic=/images/mybatis.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -254,22 +272,22 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/&title=《JavaScript预编译（执行期上下文）》 — Zesystem'blog&source=很多人前端人员都知道变量提升这个概念，但是为什么会出现这样，很多人模棱两可。实际上在js中这叫做预编译，也叫做执行期上下文，在这里深度剖析一下它的底层原理。" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://zesystem.github.io/2019/08/27/Mybatis用xml配置sql传参方式/&title=《Mybatis用xml配置sql传参方式》 — Zesystem'blog&source=This is Zesystem's blog." data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
           <li>
-            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/" data-title="Facebook">
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://zesystem.github.io/2019/08/27/Mybatis用xml配置sql传参方式/" data-title="Facebook">
               <i class="fa fa-facebook"></i>
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《JavaScript预编译（执行期上下文）》 — Zesystem'blog&url=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/&via=https://zesystem.github.io" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mybatis用xml配置sql传参方式》 — Zesystem'blog&url=https://zesystem.github.io/2019/08/27/Mybatis用xml配置sql传参方式/&via=https://zesystem.github.io" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
           <li>
-            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/" data-title="Google+">
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://zesystem.github.io/2019/08/27/Mybatis用xml配置sql传参方式/" data-title="Google+">
               <i class="fa fa-google-plus"></i>
             </a>
           </li>
@@ -279,7 +297,7 @@
 <div class="post-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;" id="wxShare-close">×</a>
     <p>扫一扫，分享到微信</p>
-    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zesystem.github.io/2019/07/28/JavaScript预编译（执行期上下文）/" alt="微信分享二维码">
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://zesystem.github.io/2019/08/27/Mybatis用xml配置sql传参方式/" alt="微信分享二维码">
 </div>
 
 <div class="mask"></div>
@@ -291,9 +309,9 @@
   <li class="article-footer-tags">
     <i class="fa fa-tags"></i>
       
-    <a href="/tags/变量提升/" class="color5">变量提升</a>
+    <a href="/tags/Mybatis/" class="color3">Mybatis</a>
       
-    <a href="/tags/预编译/" class="color4">预编译</a>
+    <a href="/tags/参数传递/" class="color5">参数传递</a>
       
   </li>
 
@@ -306,26 +324,26 @@
 
     <aside class="post-toc-pos post-toc-top" id="post-toc">
         <nav class="post-toc-wrap">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#预编译（又叫“执行期上下文”）"><span class="post-toc-text">预编译（又叫“执行期上下文”）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大家先看看这段代码"><span class="post-toc-text">大家先看看这段代码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#大家再看看下面这段代码"><span class="post-toc-text">大家再看看下面这段代码</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#预编译（‘执行期上下文’）"><span class="post-toc-text">预编译（‘执行期上下文’）</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1、传入一个参数"><span class="post-toc-text">1、传入一个参数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2、2、-0-、-1-……索引方式，传入多个参数"><span class="post-toc-text">2、2、#{0}、#{1}……索引方式，传入多个参数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3、-参数名-，传入多个参数，并且参数用-param注解"><span class="post-toc-text">3、#{参数名}，传入多个参数，并且参数用@param注解</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4、传入多个基本类型参数，参数用map封装，通过-mapKey-取值"><span class="post-toc-text">4、传入多个基本类型参数，参数用map封装，通过#{mapKey}取值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5、使用map封装实体类-通过通过-mapKey-attributeName-取值"><span class="post-toc-text">5、使用map封装实体类,通过通过#{mapKey.attributeName}取值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#6、直接传入实体参数，通过-属性名-取值"><span class="post-toc-text">6、直接传入实体参数，通过#{属性名}取值</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#7、使用"><span class="post-toc-text">7、使用${}</span></a></li></ol>
         </nav>
     </aside>
     
 
 <nav id="article-nav">
   
-    <a href="/2019/07/29/关于浮点数丢失精度的原理/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/27/浅谈反射/" id="article-nav-newer" class="article-nav-link-wrap">
 
       <span class="article-nav-title">
         <i class="fa fa-hand-o-left" aria-hidden="true"></i>
         
-          关于浮点数丢失精度的原理
+          浅谈反射
         
       </span>
     </a>
   
   
-    <a href="/2019/07/27/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <span class="article-nav-title">Hello World</span>
+    <a href="/2019/08/17/JavaWeb基础知识之Servlet/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">JavaWeb基础知识之Servlet</span>
       <i class="fa fa-hand-o-right" aria-hidden="true"></i>
     </a>
   
@@ -334,7 +352,7 @@
 
 
     
-        <div id="SOHUCS" sid="JavaScript预编译（执行期上下文）" ></div>
+        <div id="SOHUCS" sid="Mybatis用xml配置sql传参方式" ></div>
 <script type="text/javascript">
     (function(){
         var appid = 'true';
